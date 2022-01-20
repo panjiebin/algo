@@ -22,7 +22,7 @@ public class SinglyLinkedListOp {
      * @param head 头结点
      * @return 反转后的链表
      */
-    public static ListNode inverse(ListNode head) {
+    public static ListNode reverse(ListNode head) {
         if (head == null) {
             return null;
         }
@@ -156,5 +156,49 @@ public class SinglyLinkedListOp {
             fast = fast.next.next;
         }
         return slow;
+    }
+
+    /**
+     * 判断一个链表是不是回文链表
+     * <p><b>思路：</b>先通过快慢指针查找链表中间节点，再将后半部分链表反转，然后再分别比较前后两部分链表的值。
+     * 如果都相等即回文链表。
+     * <p>时间复杂度：O(n)，空间复杂度：O(1)
+     * @param head 头结点
+     * @return 回文链表-true，反之-false
+     */
+    public static boolean isPalindrome(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        //快慢指针定位中间节点
+        ListNode slow = head;
+        //快指针从head.next开始，是为方便处理链表长度的奇偶情况
+        //不管长度是奇数还是偶数，后半部分链表的头结点，都是中间结点的下一个结点
+        ListNode fast = head.next;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        //后半部分头结点
+        ListNode halfHead = slow.next;
+        //反转链表
+        ListNode reverse = reverse(halfHead);
+        while (reverse != null) {
+            if (head.val != reverse.val) {
+                return false;
+            }
+            reverse = reverse.next;
+            head = head.next;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isPalindrome(ListNode.newListNode(new int[]{1})));
+        System.out.println(isPalindrome(ListNode.newListNode(new int[]{1,1})));
+        System.out.println(isPalindrome(ListNode.newListNode(new int[]{1,2})));
+        System.out.println(isPalindrome(ListNode.newListNode(new int[]{1,2,2,1})));
+        System.out.println(isPalindrome(ListNode.newListNode(new int[]{1,2,3,2,1})));
+
     }
 }
