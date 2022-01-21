@@ -1,14 +1,14 @@
 package com.code.algo.stack;
 
 /**
- * 基于数组实现的栈，不支持扩容
- * <p>出栈、入栈时间复杂度：O(1)
+ * 顺序栈：基于数组实现的栈，支持动态扩容
+ * <p>出栈、入栈时间复杂度：O(1) 均摊复杂度
+ *
  * @author panjb
  */
 public class StackBaseArray<T> {
-
-    private final Object[] items;
-    private final int capacity;
+    private Object[] items;
+    private int capacity;
     private int count;
 
     public StackBaseArray(int capacity) {
@@ -17,21 +17,30 @@ public class StackBaseArray<T> {
         this.count = 0;
     }
 
-    public boolean push(T item) {
-        if (count >= capacity) {
-            return false;
+    public void push(T item) {
+        if (count == capacity) {
+            resize();
         }
-        this.items[count] = item;
+        items[count] = item;
         count++;
-        return true;
+    }
+
+    /**
+     * 动态扩容为原来2倍
+     */
+    private void resize() {
+        capacity = capacity << 1;
+        Object[] newItems = new Object[capacity];
+        System.arraycopy(items, 0, newItems, 0, items.length);
+        items = newItems;
     }
 
     public T pop() {
         if (count == 0) {
             return null;
         }
-        T t = (T) this.items[count - 1];
+        T item = (T) items[count - 1];
         count--;
-        return t;
+        return item;
     }
 }
