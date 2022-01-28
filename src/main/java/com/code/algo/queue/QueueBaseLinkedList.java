@@ -7,7 +7,7 @@ package com.code.algo.queue;
  * <p>出队和入队的时间复杂度：O(1)
  * @author panjb
  */
-public class QueueBaseLinkedList<E> {
+public class QueueBaseLinkedList<E> implements Queue<E> {
 
     private Node<E> head;
     private Node<E> tail;
@@ -25,7 +25,8 @@ public class QueueBaseLinkedList<E> {
         System.out.println(queue.dequeue());
     }
 
-    public void enqueue(E element) {
+    @Override
+    public boolean enqueue(E element) {
         Node<E> node = new Node<>(element);
         if (head == null) {
             head = node;
@@ -34,8 +35,10 @@ public class QueueBaseLinkedList<E> {
             tail.next = node;
             tail = tail.next;
         }
+        return true;
     }
 
+    @Override
     public E dequeue() {
         if (head == null) {
             return null;

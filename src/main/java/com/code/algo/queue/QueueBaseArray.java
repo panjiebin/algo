@@ -8,7 +8,7 @@ package com.code.algo.queue;
  * <p>出队入队时间复杂度：O(1)</p>
  * @author panjb
  */
-public class QueueBaseArray<E> {
+public class QueueBaseArray<E> implements Queue<E> {
 
     private final Object[] elements;
     private final int capacity;
@@ -36,6 +36,7 @@ public class QueueBaseArray<E> {
         System.out.println(queue.dequeue());
     }
 
+    @Override
     public boolean enqueue(E element) {
         if (tail == capacity) {
             //对头在初始位置，表示队列已满
@@ -54,6 +55,7 @@ public class QueueBaseArray<E> {
         return true;
     }
 
+    @Override
     public E dequeue() {
         if (head == tail) {
             return null;
