@@ -131,4 +131,21 @@ public class BinarySearchTree {
             parent.setRight(child);
         }
     }
+
+    public TreeNode<Integer> findMax() {
+        TreeNode<Integer> node = tree;
+        while (node.getRight() != null) {
+            node = node.getRight();
+        }
+        return node;
+    }
+
+    public TreeNode<Integer> findMin() {
+        TreeNode<Integer> node = tree;
+        while (node.getLeft() != null) {
+            node = node.getLeft();
+        }
+        return node;
+    }
+
 }

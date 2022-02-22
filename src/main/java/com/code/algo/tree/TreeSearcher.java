@@ -115,4 +115,38 @@ public class TreeSearcher {
         }
         return list;
     }
+
+    /**
+     * 求树的高度
+     * @param root 根节点
+     * @return 树高度
+     */
+    public int maxDepth(TreeNode<Integer> root) {
+        if (root == null) {
+            return 0;
+        }
+        int floor = 1;
+        int front = 0;
+        Queue<TreeNode<Integer>> queue = new LinkedList<>();
+        queue.offer(root);
+        int rear = queue.size();
+        while (!queue.isEmpty()) {
+            TreeNode<Integer> node = queue.poll();
+            front++;
+            if (node.getLeft() != null) {
+                queue.offer(node.getLeft());
+            }
+            if (node.getRight() != null) {
+                queue.offer(node.getRight());
+            }
+            if (front == rear) {
+                front = 0;
+                rear = queue.size();
+                if (rear != 0) {
+                    floor++;
+                }
+            }
+        }
+        return floor;
+    }
 }
