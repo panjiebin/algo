@@ -1,9 +1,6 @@
 package com.code.algo.tree;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 二叉树遍历
@@ -42,6 +39,7 @@ public class TreeSearcher {
         inOrder(root);
         System.out.println();
         System.out.println("后序遍历");
+        // D, B, E, A, F, C, G
         postOrder(root);
         System.out.println();
         System.out.println("按层遍历");

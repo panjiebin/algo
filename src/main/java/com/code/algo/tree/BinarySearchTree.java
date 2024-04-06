@@ -86,11 +86,12 @@ public class BinarySearchTree {
         TreeNode<Integer> node = tree;
         while (node != null && node.getVal() != data) {
             if (node.getVal() < data) {
+                parent = node;
                 node = node.getRight();
             } else {
+                parent = node;
                 node = node.getLeft();
             }
-            parent = node;
         }
         if (node == null) {
             return;
@@ -98,13 +99,13 @@ public class BinarySearchTree {
         //要删除的节点存在左右子树
         if (node.getLeft() != null && node.getRight() != null) {
             //右子树最小节点的父节点
-            TreeNode<Integer> minRightParent = null;
+            TreeNode<Integer> minRightParent = node;
+            TreeNode<Integer> minRightNode = node.getRight();
             //迭代查找右子树的最小节点
-            TreeNode<Integer> minRightNode = node;
             //终止条件为，左子树为空（如果左子树不为空，就不是最小节点了）
             while (minRightNode.getLeft() != null) {
-                minRightNode = minRightNode.getLeft();
                 minRightParent = minRightNode;
+                minRightNode = minRightNode.getLeft();
             }
             //将要删除节点的值设置为右子树最小节点的值
             node.setVal(minRightNode.getVal());
